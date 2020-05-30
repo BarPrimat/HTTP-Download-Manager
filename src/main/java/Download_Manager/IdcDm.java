@@ -1,9 +1,11 @@
+package Download_Manager;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
 /**
- * This class is the main class for HTTP-Download-Manager
+ * This class is the main class for Download_Manager
  * the class received URL or list od URL and number of thread and start downloading from the given input
  */
 

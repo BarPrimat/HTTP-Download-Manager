@@ -1,3 +1,5 @@
+package Download_Manager;
+
 /**
  * This class represents a static variable
  */

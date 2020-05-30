@@ -1,3 +1,5 @@
+package Download_Manager;
+
 /**
  * This class represents the metadata object that will write in to the disk with the name of the file and the TEMP_SUFFIX.
  * The metadata is countin (1) chunksUntilNow = chunks that already downloaded, (2) size = how many chunk is needed
