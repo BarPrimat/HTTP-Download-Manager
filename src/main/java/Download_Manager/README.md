@@ -9,4 +9,4 @@
 - `WriterManager` - This class responsible for writing the data and tge temporary metadata file on the disk
 		and transfer the 2 temporary metadat file in to 1 (with ATOMIC_MOVE) that for saving the metadata file in case of
 		problem with writing on the disk
-- `StaticVariable` -  This class represents a static variabl
+- `StaticVariable` -  This class represents a static variable
