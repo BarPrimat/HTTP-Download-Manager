@@ -40,6 +40,7 @@ public class IdcDmTest extends TestCase {
      */
     @Test
     public void testMain() throws NoSuchAlgorithmException, IOException {
+        // [0] = fileName , [1] = checksum that expected, [2] = MessageDigest algorithms , [3] = isFromResources
         String [][]  arrOfTestes = {{"CentOS-6.10-x86_64-netinstall.iso", "36b9b5d36d3a61b541e64b01eb9734667235615e", "SHA-1", "true"},
                                     {"Mario1_500.avi", "229c0c5a0d1b797ce1e0ce2557e93e3b","MD5", "false"}};
         String [] messageDigestAlgorithms = {"MD5", "SHA-1", "SHA-256"}; // Can deal with these algorithms that by definition from MessageDigest class
