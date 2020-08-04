@@ -6,5 +6,5 @@ for example:
 1. `java IdcDm https://archive.org/download/Mario1_500/Mario1_500.avi 8`  
 2. `java IdcDm CentOS-6.10-x86_64-netinstall.iso.list 5`
 
-#### [Java classes explanations](https://github.com/BarPrimat/HTTP-Download-Manager/blob/master/src/main/java/Download_Manager/README.md)
-#### [Go to Unit testing](https://github.com/BarPrimat/HTTP-Download-Manager/tree/master/src/test/java/Download_Manager)
+- #### [Java classes explanations](https://github.com/BarPrimat/HTTP-Download-Manager/blob/master/src/main/java/Download_Manager/README.md)
+- #### [Go to Unit testing](https://github.com/BarPrimat/HTTP-Download-Manager/tree/master/src/test/java/Download_Manager)
