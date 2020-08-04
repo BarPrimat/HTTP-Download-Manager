@@ -11,6 +11,7 @@ import java.util.concurrent.*;
 public class ManagerDownloader {
 
     private ExecutorService threadPool;
+    private int counter = 0;
 
     public ManagerDownloader (){}
 
@@ -79,9 +80,12 @@ public class ManagerDownloader {
         // Create a single writer thread that charge of data from the blocking queue
         Thread fileWriterThread = fileWriterManager.createWorkerThread(bq);
         threadPool.execute(fileWriterThread);
+        counter++;
+        System.out.println("first" + counter);
         // Set the thread pool
         this.setThreadPool(threadPool);
         threadPool.shutdown();
+        System.out.println("second" + counter);
         // Assume that the program finish the download before n days in our case 2 days
         try {
             this.threadPool.awaitTermination(StaticVariable.nDAYS, TimeUnit.DAYS);
