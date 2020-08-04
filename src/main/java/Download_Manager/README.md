@@ -10,3 +10,5 @@
 		and transfer the 2 temporary metadat file in to 1 (with ATOMIC_MOVE) that for saving the metadata file in case of
 		problem with writing on the disk
 - `StaticVariable` -  This class represents a static variable
+
+### [Go to Unit testing](https://github.com/BarPrimat/HTTP-Download-Manager/tree/master/src/test/java/Download_Manager)
