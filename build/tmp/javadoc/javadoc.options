@@ -1,0 +1,13 @@
+-classpath 'D:\\bar\\projects\\HTTP-Download-Manager\\build\\classes\\java\\main;D:\\bar\\projects\\HTTP-Download-Manager\\build\\resources\\main'
+-d 'D:\\bar\\projects\\HTTP-Download-Manager\\build\\docs\\javadoc'
+-doctitle 'Download_Manager 1.0-SNAPSHOT API'
+-notimestamp 
+-quiet 
+-windowtitle 'Download_Manager 1.0-SNAPSHOT API'
+'D:\\bar\\projects\\HTTP-Download-Manager\\src\\main\\java\\Download_Manager\\ConnectionDownloads.java'
+'D:\\bar\\projects\\HTTP-Download-Manager\\src\\main\\java\\Download_Manager\\DataChunk.java'
+'D:\\bar\\projects\\HTTP-Download-Manager\\src\\main\\java\\Download_Manager\\IdcDm.java'
+'D:\\bar\\projects\\HTTP-Download-Manager\\src\\main\\java\\Download_Manager\\ManagerDownloader.java'
+'D:\\bar\\projects\\HTTP-Download-Manager\\src\\main\\java\\Download_Manager\\MetadataFile.java'
+'D:\\bar\\projects\\HTTP-Download-Manager\\src\\main\\java\\Download_Manager\\StaticVariable.java'
+'D:\\bar\\projects\\HTTP-Download-Manager\\src\\main\\java\\Download_Manager\\WriterManager.java'

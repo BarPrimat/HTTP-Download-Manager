@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Download_Manager.DataChunkTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-08-03T16:47:17" hostname="DESKTOP-EOTEA0O" time="0.025">
+  <properties/>
+  <testcase name="testToString" classname="Download_Manager.DataChunkTest" time="0.025"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

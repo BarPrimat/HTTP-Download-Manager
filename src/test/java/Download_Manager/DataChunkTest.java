@@ -1,13 +1,8 @@
 package Download_Manager;
 
+import Download_Manager.Logic.DataChunk;
 import junit.framework.TestCase;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-
-import javax.xml.crypto.Data;
-
-import static org.junit.Assert.*;
 
 public class DataChunkTest extends TestCase {
     byte [] data = new byte[100];

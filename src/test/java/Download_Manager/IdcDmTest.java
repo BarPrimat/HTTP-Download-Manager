@@ -1,5 +1,6 @@
 package Download_Manager;
 
+import Download_Manager.UI.IdcDm;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
