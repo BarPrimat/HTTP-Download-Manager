@@ -1,5 +1,7 @@
 package Download_Manager.Logic;
 
+import Download_Manager.UI.Display;
+
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.BlockingQueue;
@@ -47,7 +49,7 @@ public class ConnectionDownloads implements Runnable{
         try {
             this.url = new URL(url);
         } catch (MalformedURLException e) {
-            System.err.println("There is problem with URL");
+            Display.printError("There is problem with URL");
             this.managerDownloader.kill(e);
         }
     }
@@ -59,13 +61,13 @@ public class ConnectionDownloads implements Runnable{
     @Override
     public void run() {
         if(this.rangeOfStart >= this.rangeOfEnd ){
-            System.out.println("[" + this.id + "]" + " Finished downloading. The range is already downloaded");
+            Display.print("[" + this.id + "]" + " Finished downloading. The range is already downloaded");
             return;
         }
         // Message to user
         String startRange = ("[%d] Start downloading range (%d - %d) from\n%s");
         startRange = String.format(startRange, this.id , this.rangeOfStart, this.rangeOfEnd, this.url.toString());
-        System.out.println(startRange);
+        Display.print(startRange);
 
         InputStream inputStream = null;
         try {
@@ -114,18 +116,18 @@ public class ConnectionDownloads implements Runnable{
             }
 
             // Finished downloading with this thread
-            System.out.println("[" + this.id + "] Finished downloading");
+            Display.print("[" + this.id + "] Finished downloading");
 
         } catch (IOException e) {
             this.managerDownloader.kill(e);
         } catch (InterruptedException e) {
-            System.err.println("Problem with the use the put function BlockingQueue");
+            // Display.printError("Problem with the use the put function BlockingQueue");
         }finally {
             if (inputStream != null) {
                 try {
                     inputStream.close();
                 } catch (IOException e) {
-                    System.err.println("Some problem with close the file");
+                    Display.printError("Some problem with close the file");
                 }
             }
         }

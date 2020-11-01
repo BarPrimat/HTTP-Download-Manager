@@ -6,6 +6,8 @@ import Download_Manager.UI.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -17,6 +19,8 @@ import java.util.List;
  */
 
 public class IdcDm {
+    private static ManagerDownloader managerDownloader = new ManagerDownloader();
+
     public static void main(String[] args) {
         if(args.length == 0) {
             createMainMenu();
@@ -33,7 +37,7 @@ public class IdcDm {
         List<String> listOfURL = null;
 
         if (args.length >= 3) {
-            System.err.println("Usage:\n\tjava IdcDm URL|URL-LIST-FILE [MAX-CONCURRENT-CONNECTIONS]");
+            Display.printError("Usage:\n\tjava IdcDm URL|URL-LIST-FILE [MAX-CONCURRENT-CONNECTIONS]");
             return;
         }
         try {
@@ -42,32 +46,32 @@ public class IdcDm {
                 try{
                     numberOfThreads = Integer.parseInt(args[1]);
                 }catch (Exception e) {
-                    System.err.println("User run error: please enter a number greater than 0");
+                    Display.printError("User run error: please enter a number greater than 0");
                     return;
                 }
             }
             if(numberOfThreads <= 0){
-                System.err.println("User run error: please enter a number greater than 0");
+                Display.printError("User run error: please enter a number greater than 0");
                 return;
             }
             fileName = args[0].replaceAll(".list", "");
+            fileName = fileName.substring(fileName.lastIndexOf('\\') + 1);
             fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
             sizeOfFile = sizeOfFile(listOfURL.get(0));
             if(sizeOfFile <= 0) {
-                System.err.println("The file size is unknown or zero");
+                Display.printError("The file size is unknown or zero");
                 return;
             }
         } catch (MalformedURLException e) {
-            System.err.println("The URL address is invalid");
+            Display.printError("The URL address is invalid");
             return;
         } catch (IOException e) {
-            System.err.println("There is problem with size of the file or with list of the URL");
+            Display.printError("There is problem with size of the file or with list of the URL");
             return;
         }
 
-        ManagerDownloader md = new ManagerDownloader();
-        md.manager(listOfURL, fileName, sizeOfFile, numberOfThreads);
-        System.out.println("Download succeeded");
+        managerDownloader.manager(listOfURL, fileName, sizeOfFile, numberOfThreads);
+        Display.print("Download succeeded");
     }
 
     private static void createMainMenu() {
@@ -78,8 +82,13 @@ public class IdcDm {
         frame.setContentPane(mainMenu.getMainJPanel());
         frame.setSize(mainMenu.getMainJPanel().getSize());
         frame.setLocationRelativeTo(null);
-        mainMenu.setProgressBar(50);
         frame.setResizable(false);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
         frame.setVisible(true);
     }
 
@@ -99,9 +108,9 @@ public class IdcDm {
                 while ((line = reader.readLine()) != null) listOfURL.add(line); // Adding all the URL address
 
             } catch (FileNotFoundException e) {
-                System.err.println("The file not found");
+                Display.printError("The file not found");
             } catch (IOException e) {
-                System.err.println("can not read from the URL file");
+                Display.printError("can not read from the URL file");
             }
         } else listOfURL.add(nameOfListFile); // The address is a URL
         return listOfURL;
@@ -120,5 +129,9 @@ public class IdcDm {
         connLength.setRequestMethod("HEAD");
         connLength.getInputStream();
         return connLength.getContentLength(); // Get the size of the file
+    }
+    public static synchronized void kill() {
+        // Pause in purpose
+        managerDownloader.kill(new Exception("Pause in purpose"));
     }
 }

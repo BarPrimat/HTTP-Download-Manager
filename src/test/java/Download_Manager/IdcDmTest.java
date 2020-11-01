@@ -68,9 +68,9 @@ public class IdcDmTest extends TestCase {
     private void deletedFile(String filenameWithPath) {
         File testFile = new File(filenameWithPath);
         if (testFile.delete()) {
-            System.out.println("Deleted the file: " + testFile.getName());
+            Display.print("Deleted the file: " + testFile.getName());
         } else {
-            System.out.println("Failed to delete the file.");
+            Display.print("Failed to delete the file.");
         }
     }
 

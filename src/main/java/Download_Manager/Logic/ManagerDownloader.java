@@ -1,5 +1,7 @@
 package Download_Manager.Logic;
 
+import Download_Manager.UI.Display;
+
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -11,7 +13,7 @@ import java.util.concurrent.*;
 public class ManagerDownloader {
 
     private ExecutorService threadPool;
-    private int counter = 0;
+    private boolean isManagerStillRunning;
 
     public ManagerDownloader (){}
 
@@ -26,17 +28,18 @@ public class ManagerDownloader {
      */
     public void manager(List<String> listOfURL, String fileName, long sizeOfFile, int numberOfThreads) {
         int numberOfConnection;
+        isManagerStillRunning = true;
         // Limits the number of connection
         if ((sizeOfFile / numberOfThreads) < StaticVariable.MINIMUM_BYTE_FOR_START) {
             numberOfConnection = (int) (sizeOfFile / StaticVariable.MINIMUM_BYTE_FOR_START);
-            System.out.println("The minimum range per connection is " + StaticVariable.MINIMUM_BYTE_FOR_START);
-            System.out.println("Making efficient the connection number to " + numberOfConnection);
+            Display.print("The minimum range per connection is " + StaticVariable.MINIMUM_BYTE_FOR_START);
+            Display.print("Making efficient the connection number to " + numberOfConnection);
         } else {
             numberOfConnection = numberOfThreads;
         }
 
         // Print to user how mach connection
-        if (numberOfConnection >= 2) System.out.println("Downloading using " + numberOfConnection + " connections...");
+        if (numberOfConnection >= 2) Display.print("Downloading using " + numberOfConnection + " connections...");
         // Create WriterManager for support resume downloading
         WriterManager fileWriterManager = new WriterManager(fileName, sizeOfFile, this);
 
@@ -80,12 +83,9 @@ public class ManagerDownloader {
         // Create a single writer thread that charge of data from the blocking queue
         Thread fileWriterThread = fileWriterManager.createWorkerThread(bq);
         threadPool.execute(fileWriterThread);
-        counter++;
-        System.out.println("first" + counter);
         // Set the thread pool
         this.setThreadPool(threadPool);
         threadPool.shutdown();
-        System.out.println("second" + counter);
         // Assume that the program finish the download before n days in our case 2 days
         try {
             this.threadPool.awaitTermination(StaticVariable.nDAYS, TimeUnit.DAYS);
@@ -93,7 +93,8 @@ public class ManagerDownloader {
             this.threadPool.shutdownNow();
             e.printStackTrace();
         }
-        fileWriterManager.deleteMetadataFile();
+
+        if(isManagerStillRunning) fileWriterManager.deleteMetadataFile();
     }
 
     /**
@@ -109,12 +110,13 @@ public class ManagerDownloader {
      * @param e - Exception form the problem source
      */
     public synchronized void kill(Exception e) {
-        System.err.println(e.getMessage());
-        System.err.println("Download failed.");
+        if(e.getMessage().equals("Pause in purpose")) Display.printError(e.getMessage());
+        Display.print("Download failed.");
+        isManagerStillRunning = false;
         if (this.threadPool != null) {
             this.threadPool.shutdownNow(); // Ending all threads
         }
         // The tasks ignore the interrupts that create because of shutDownNow.
-        System.exit(1);
+        // System.exit(1);
     }
 }

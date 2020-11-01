@@ -1,5 +1,7 @@
 package Download_Manager.Logic;
 
+import Download_Manager.UI.Display;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -21,8 +23,9 @@ public class WriterManager {
 
     public WriterManager(String fileName, long size, ManagerDownloader managerDownloader){
         this.tempFileName = String.format("%s%s%s", pathToWriteTheFile, fileName ,StaticVariable.TEMP_SUFFIX);
+        //this.tempFileName = pathToWriteTheFile + fileName + StaticVariable.TEMP_SUFFIX;
         try {
-            this.file = new RandomAccessFile(fileName , "rw");
+            this.file = new RandomAccessFile(pathToWriteTheFile + fileName , "rw");
             // Now the file which will download into is create
             File tempFile = new File(tempFileName); // Open the temp File
             this.managerDownloader = managerDownloader;
@@ -35,13 +38,13 @@ public class WriterManager {
                 objectFile.close();
             }
         }catch (IOException | ClassNotFoundException e) {
-            System.err.println("There is some problem with the metadata file");
+            Display.printError("There is some problem with the metadata file");
             return;
         }
     }
 
-    public static void setPathToWriteTheFile(String pathToWriteTheFile) {
-        WriterManager.pathToWriteTheFile = pathToWriteTheFile;
+    public static void setPathToWriteTheFile(String newPathToWriteTheFile) {
+        WriterManager.pathToWriteTheFile = newPathToWriteTheFile;
     }
 
     public void writeToFile(DataChunk dataChunk){
@@ -68,10 +71,11 @@ public class WriterManager {
             int currentPercentages = this.metadataFile.getPercentages();
             // Check if the percentages is change after this adding
             if(previousPercentages < currentPercentages){
-                System.out.println("Downloaded " + currentPercentages + "%");
+                Display.updatePercentToDisplay(currentPercentages);
+                Display.print("Downloaded " + currentPercentages + "%");
             }
         } catch (IOException e) {
-            System.err.println("There is problem with write to the file");
+            Display.printError("There is problem with write to the file");
         }
     }
 
@@ -105,16 +109,16 @@ public class WriterManager {
      */
     public void deleteMetadataFile() {
         String tempFile = this.tempFileName;
-
         File file = new File(tempFile);
+
         if (!file.delete()) {
-            System.err.println("can't delete the Metadata file: " + tempFile);
+            Display.printError("can't delete the Metadata file: " + tempFile);
         }
         if (this.file != null) {
             try {
                 this.file.close();
             } catch (IOException e) {
-                System.err.println("Can't close the file: " + this.file);
+                Display.printError("Can't close the file: " + this.file);
             }
         }
     }
@@ -154,7 +158,7 @@ public class WriterManager {
                         break;
                     }
                 } catch (InterruptedException e) {
-                    this.writerManager.getManagerDownloader().kill(e);
+                    // this.writerManager.getManagerDownloader().kill(e);
                     return;
                 }
             }
