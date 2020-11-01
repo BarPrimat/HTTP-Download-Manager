@@ -1,6 +1,8 @@
 # HTTP-Download-Manager
 This file allows downloading of files from url links using multi threads and multi url address (if there is).  
-You can run this with the CMD as following:  
+You can run with the GUI:  
+<img src="https://github.com/BarPrimat/HTTP-Download-Manager/blob/master/DownloadManagerPic2.jpg" width="400" height="250" />  
+Or you can run this with the CMD as following:  
 `java IdcDm <URL|URL-LIST-FILE> <MAX-CONCURRENT-CONNECTIONS>`  
 for example:  
 1. `java IdcDm https://archive.org/download/Mario1_500/Mario1_500.avi 8`  
