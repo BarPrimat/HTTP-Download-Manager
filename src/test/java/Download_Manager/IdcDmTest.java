@@ -1,5 +1,6 @@
 package Download_Manager;
 
+import Download_Manager.UI.Display;
 import Download_Manager.UI.IdcDm;
 import junit.framework.TestCase;
 import org.junit.Before;
@@ -24,8 +25,8 @@ public class IdcDmTest extends TestCase {
 
     @Before
     public void setUp() throws Exception {
-        argsListNumber1 = new String[]{"CentOS-6.10-x86_64-netinstall.iso.list", "8"};
-        argsListNumber2 = new String[]{"https://archive.org/download/Mario1_500/Mario1_500.avi", "6"};
+        argsListNumber1 = new String[]{"CentOS-6.10-x86_64-netinstall.iso.list", "12"};
+        argsListNumber2 = new String[]{"https://archive.org/download/Mario1_500/Mario1_500.avi", "8"};
         argsListNumber1[0] = String.format("%1$s%2$s%3$s",Paths.get("").toAbsolutePath().toString(), "\\src\\test\\resources\\", argsListNumber1[0]);
 
         linkForURLNumber1 = "http://centos.mirror.garr.it/centos/6.10/isos/x86_64/CentOS-6.10-x86_64-netinstall.iso";

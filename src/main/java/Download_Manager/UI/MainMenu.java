@@ -12,6 +12,7 @@ import java.awt.event.*;
 public class MainMenu extends JFrame {
     private static final int  maxNumberOfThreads = 30;
     private static final int  minNumberOfThreads = 1;
+    private static final int  firstNumberOfThreads = 12;
 
     private JButton browseForDownloadButton;
     private JTextField downloadFormText;
@@ -32,7 +33,7 @@ public class MainMenu extends JFrame {
         pathToDownloadText.setText(homePath);
         mainJPanel.setSize(500, 280); // 640, 200
         progressBar.setPreferredSize(new Dimension(200, 30));
-        numberOfTreadsSpinner.setValue(8);
+        numberOfTreadsSpinner.setValue(firstNumberOfThreads);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
